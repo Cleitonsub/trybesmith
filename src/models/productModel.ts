@@ -8,7 +8,7 @@ export default class ProductModel {
     this.connection = connection;
   }
 
-  public async create(product: IProduct): Promise<IProduct> {
+  public async create(product: IProduct) {
     const { name, amount } = product;
 
     const [result] = await this.connection.execute<ResultSetHeader>(
