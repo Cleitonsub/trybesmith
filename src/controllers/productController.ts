@@ -14,4 +14,13 @@ export default class ProductController {
       next(error);
     }
   };
+
+  public getAllProducts = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const result = await this.productService.getAllProducts();
+      return res.status(200).json(result);
+    } catch (error) {
+      next(error);
+    }
+  };
 }
