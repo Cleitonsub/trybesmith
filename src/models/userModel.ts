@@ -28,7 +28,7 @@ export default class UserModel {
     );
     const [user] = data as IUser[];
 
-    return user || null;
+    return user;
   };
 
   // public async getAllProducts(): Promise<IProduct[]> {
