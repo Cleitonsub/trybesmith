@@ -9,11 +9,12 @@ export default class OrderModel {
   }
 
   public async getAllOrders(): Promise<IOrder[]> {
-    // Funcao GROUP_CONCAT pesquisado no google, link:
-    // https://acervolima.com/mysql-funcao-group_concat/
+    // Inspirado no nosso amigo heitortessaro, funcao JSON_ARRAYAGG encontrado em documentacao, link:
+    // https://dev.mysql.com/doc/refman/5.7/en/aggregate-functions.html
     const [result] = await this.connection.execute(
-      `SELECT orders.id, userId, GROUP_CONCAT(DISTINCT products.id) AS productsIds
-      FROM Trybesmith.Orders AS orders INNER JOIN Trybesmith.Products AS products
+      `SELECT orders.id, userId, JSON_ARRAYAGG(products.id) AS productsIds
+      FROM Trybesmith.Orders AS orders
+      INNER JOIN Trybesmith.Products AS products
       ON products.orderId = orders.id
       GROUP BY orders.id
       ORDER BY userId`,

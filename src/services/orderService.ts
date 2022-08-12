@@ -10,11 +10,6 @@ export default class OrderService {
 
   public getAllOrders = async () => {
     const result = await this.orderModel.getAllOrders();
-    const orderResult = result.map(({ id, userId, productsIds }) => ({
-      id,
-      userId,
-      productsIds: productsIds.split(',').map((productId) => Number(productId)),
-    }));
-    return orderResult;
+    return result;
   };
 }
