@@ -3,7 +3,7 @@ import UserModel from '../models/userModel';
 import connection from '../models/connection';
 import { createToken } from './jwtService';
 import HttpException from '../validations/HttpException';
-import { validateUser } from '../validations/userValidation';
+import { validateCreateUserBody } from '../validations/userValidation';
 
 export default class UserService {
   public userModel: UserModel;
@@ -13,9 +13,9 @@ export default class UserService {
   }
 
   public createUser = async (user: IUser) => {
-    validateUser(user);
+    validateCreateUserBody(user);
     const userExists = await this.userModel.getByUsername(user.username);
-    if (userExists) throw new HttpException('NotFoundError', 'Pessoa já cadastrada');
+    if (userExists) throw new HttpException(400, 'Pessoa já cadastrada');
     const { username } = await this.userModel.create(user);
     const token = createToken({ username });
     return { token };
