@@ -21,4 +21,21 @@ export default class OrderModel {
     );
     return result as IOrder[];
   }
+
+  public createOrder = async (userId: number, productsIds: number[]) => {
+    const [resultInsertId] = await this.connection.execute(
+      'INSERT INTO Trybesmith.Orders (userId) VALUES (?)',
+      [userId],
+    ) as { insertId: number }[];
+    const { insertId } = resultInsertId;
+    
+    await Promise.all(productsIds.map(async (productId: number) => {
+      await this.connection.execute(
+        'UPDATE Trybesmith.Products SET orderId = ? WHERE id = ?',
+        [insertId, productId],
+      );
+    }));
+
+    return { userId, productsIds, orderId: insertId };
+  };
 }

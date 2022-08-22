@@ -30,11 +30,4 @@ export default class UserModel {
 
     return user;
   };
-
-  // public async getAllProducts(): Promise<IProduct[]> {
-  //   const [result] = await this.connection.execute(
-  //     'SELECT * FROM Trybesmith.Products',
-  //   );
-  //   return result as IProduct[];
-  // }
 }

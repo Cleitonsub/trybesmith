@@ -12,4 +12,15 @@ export default class OrderController {
       next(error);
     }
   };
+
+  public createOrder = async (req: Request, res: Response, next: NextFunction) => {
+    const { productsIds } = req.body;
+    const token = req.headers.authorization;
+    try {
+      const result = await this.orderService.createOrder(productsIds, token as string);
+      return res.status(201).json(result);
+    } catch (error) {
+      next(error);
+    }
+  };
 }

@@ -5,3 +5,7 @@ export interface IUser {
   level: number;
   password: string;
 }
+
+export interface IUserId {
+  id: number,
+}

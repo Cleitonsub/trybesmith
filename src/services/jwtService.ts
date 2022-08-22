@@ -10,6 +10,12 @@ export const createToken = (data: ICreateToken):string => {
   return token;
 };
 
+export function getUserByToken(token: string) {
+  const { username } = jwt.verify(token, 'suaSenhaForte') as { username: string };
+  return username as string;
+}
+
 export default {
   createToken,
+  getUserByToken,
 };

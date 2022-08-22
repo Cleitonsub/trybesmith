@@ -22,7 +22,20 @@ export const productAmountValidation = (amount: string) => {
   return true;
 };
 
+export const productsIdsValidation = (productsIds: number[]) => {
+  if (!productsIds) throw new HttpException(400, '"productsIds" is required');
+  const arrayIsArray = Array.isArray(productsIds);
+  if (!arrayIsArray) {
+    throw new HttpException(422, '"productsIds" must be an array');
+  }
+  if (!productsIds[0]) {
+    throw new HttpException(422, '"productsIds" must include only numbers');
+  }
+  return true;
+};
+
 export default {
   productNameValidation,
   productAmountValidation,
+  productsIdsValidation,
 };
